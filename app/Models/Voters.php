@@ -11,6 +11,6 @@ class Voters extends Model
 
     public function journalists()
     {
-        return $this->belongsToMany(Journalists::class);
+        return $this->belongsToMany(Journalists::class)->withTimestamps();
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 
-class journalist_voterSeeder extends Seeder
+class journalists_votersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,9 +19,9 @@ class journalist_voterSeeder extends Seeder
 
         $journalistsId  = DB::table('journalists')->pluck('id');
         $votersId = DB::table('voters')->pluck('id');
-        DB::table('journalist_voters')->insert([
-            'journalist_id' => $faker->randomElement( $journalistsId ),
-            'voter_id'      => $faker->randomElement( $votersId ),
+        DB::table('journalists_voters')->insert([
+            'journalists_id' => $faker->randomElement( $journalistsId ),
+            'voters_id'      => $faker->randomElement( $votersId ),
             'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
     }
