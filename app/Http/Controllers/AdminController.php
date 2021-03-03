@@ -44,6 +44,15 @@ class AdminController extends Controller
         if( Auth::check() ) {
 
             $id = $request->get('id');
+
+            $oldImage = Journalists::where('id', $id )->get('image');
+
+            if( $oldImage[0]['image'] != 'testimage.jpg' ){
+
+                Storage::disk('public')->delete( 'images/profileImages/'.$oldImage[0]['image'] );
+
+            }
+
             Journalists::find($id)->voters()
                                   ->detach();
             Journalists::where('id', $id)->delete();
