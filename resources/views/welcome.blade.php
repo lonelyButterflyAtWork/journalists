@@ -47,21 +47,26 @@
                 @endif
                 <div class="card-body p-0">
                   <table class="table table-striped projects">
-                      <thead>
-                          <tr>
-                              <th style="width: 15%">
-                                  Dziennikarz
-                              </th>
-                              <th style="width: 30%">
-                                  Opis
-                              </th>
-                              <th style="width: 10%" class="text-center">
-                                  Głosy
-                              </th>
-                              <th style="width: 15%">
-                              </th>
-                          </tr>
-                      </thead>
+                      @if( isset( $journalists[0] ) )
+                        <thead>
+                            <tr>
+                                <th style="width: 15%">
+                                    Dziennikarz
+                                </th>
+                                <th style="width: 30%">
+                                    Opis
+                                </th>
+                                <th style="width: 10%" class="text-center">
+                                    Głosy
+                                </th>
+                                <th style="width: 15%">
+                                </th>
+                            </tr>
+                        </thead>
+                      @else
+                        <h3 class="text-center h3" style="width:100%;padding-bottom:30px">Już niedługo rozpoczniemy głosowanie.</h3>
+                      @endif
+
                       <tbody>
                           @foreach ($journalists as $journalist)
 

@@ -36,8 +36,8 @@ class AdminController extends Controller
         $id = $request['id'];
 
         $voters = Voters::with('journalists')->whereHas('journalists', function($q) use($id) {
-            $q->where('journalists.id', $id);
-        })->get();
+                                           $q->where('journalists.id', $id);
+                                           })->get();
 
         return response()->json(['data'=>$voters]);
     }
@@ -45,7 +45,8 @@ class AdminController extends Controller
     {
         if( Auth::check() ) {
             $id = $request->get('id');
-            Journalists::find($id)->voters()->detach();
+            Journalists::find($id)->voters()
+                                  ->detach();
             Journalists::where('id', $id)->delete();
         }
         return redirect('/dashboard');
@@ -55,24 +56,32 @@ class AdminController extends Controller
         Journalists_voter::find( $request['id'] )->delete();
     }
     public function editJournalistPage($id){
+
         if (Journalists::where('id', $id)->exists()) {
+
             $journalistInfo = Journalists::where('id', $id)->get();
             return view('admin.editJournalist', ['journalistInfo' => $journalistInfo[0] ]);
+
         } else{
+
             return redirect('/dashboard');
+
         }
     }
     public function editJournalistEditData(Request $request){
+
         $id = $request->get('id');
         $oldImage = Journalists::where('id', $id )->get('image');
 
         if( $id != NULL ){
+
             $validated = $request->validate([
                 'name'        => 'required|string|max:255',
                 'description' => 'required|string|max:255',
                 'image'       => 'nullable|image|max:1024'
             ]);
             if( $request->hasFile('image') ){
+
                 try {
 
                     if( $oldImage[0]['image'] != 'testimage.jpg' ){
@@ -84,21 +93,30 @@ class AdminController extends Controller
                     $validated['image'] = $this->storeProfileImage(  $request->file('image'), $id );
 
                 } catch ( \Exception $e) {
+
                     return back()->with('alert-warning', 'Something went wrong: ' . $e);
+
                 }
 
             } else{
+
                 unset( $validated['image'] );
+
             }
             Journalists::where('id', $id )->update($validated);
             return redirect('/dashboard/edit-journalist/' . $id);
+
         } else{
+
             return redirect('/dashboard');
+
         }
     }
     public function addJournalistPage(Type $var = null)
     {
+
         return view('admin.addJournalist');
+
     }
     public function addJournalistPageAddData(Request $request){
 
