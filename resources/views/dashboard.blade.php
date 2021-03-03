@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('homeLinkActive')
+    active
+@endsection
 @section('title')
     Start
 @endsection
@@ -8,7 +11,7 @@
             <div class="card-header">
               <h3 class="card-title">Lista dziennikarzy</h3>
               <td class="project-actions text-right">
-                  <a class="btn btn-primary btn-sm ml-3" href="#">
+                  <a class="btn btn-primary btn-sm ml-3" href="{{ route('dashboard.addJournalistPage') }}">
                       <i class="fas fa-user-plus"></i>
                       Dodaj dziennikarza
                   </a>
@@ -57,7 +60,7 @@
                           </td>
                           <td>
 
-                              <img alt="Avatar" class="table-avatar" src="{{ $item['image'] }}">
+                              <img alt="Avatar" class="table-avatar" src="{{  URL::asset('storage/images/profileImages/' . $item['image']) }}">
 
                           </td>
                           <td class="project_progress">

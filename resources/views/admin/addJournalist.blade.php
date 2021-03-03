@@ -1,11 +1,13 @@
 @extends('layouts.master')
+@section('addJournalistLinkActive')
+    active
+@endsection
 @section('title')
-    Edycja dziennikarza
+    Dodaj dziennikarza
 @endsection
 @section('content')
-<form action="{{ route('dashboard.editJournalistPage.editData') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('dashboard.addJournalistPage.addData') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <input type="hidden" name="id" value="{{ $journalistInfo['id'] }}">
     <div class="row">
         <div class="col-md-6">
         <div class="card card-primary">
@@ -21,11 +23,11 @@
             <div class="card-body">
             <div class="form-group">
                 <label for="inputName">Nazwa dziennikarza</label>
-                <input type="text" name="name" id="inputName" class="form-control" value="{{ $journalistInfo['name'] }}">
+                <input type="text" name="name" id="inputName" class="form-control" >
             </div>
             <div class="form-group">
                 <label for="inputDescription">Opis dziennikarza</label>
-                <textarea id="inputDescription"  name="description" class="form-control" rows="4">{{ $journalistInfo['description'] }}</textarea>
+                <textarea id="inputDescription"  name="description" class="form-control" rows="4"></textarea>
             </div>
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -57,21 +59,14 @@
             </div>
             <div class="card-body p-0">
             <table class="table">
-                <thead>
-                <tr>
-                    <th>Nazwa pliku</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
+
                 <tbody>
 
                 <tr>
-                    <td>{{ $journalistInfo['image'] }}</td>
+                    <td>Dodaj</td>
                     <td></td>
                     <td class="text-right py-0 align-middle">
                     <div class="btn-group btn-group-sm">
-                        <label><a target="_blank" href="{{  URL::asset('storage/images/profileImages/' . $journalistInfo['image'])  }}" class="btn btn-info"><i class="fas fa-eye"></i></a></label>
                         <label for="imageInput"><a  class="btn btn-info" for="imageInput"><i class="fas fa-edit"></i></a></label>
                         <input type="file" name="image" class="form-control-file" id="imageInput" style="display: none">
 

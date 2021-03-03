@@ -65,7 +65,11 @@ class AdminController extends Controller
             if( $request->hasFile('image') ){
                 try {
 
-                    Storage::disk('public')->delete( 'images/profileImages/'.$oldImage[0]['image'] );
+                    if( $oldImage[0]['image'] != 'testimage.jpg' ){
+
+                        Storage::disk('public')->delete( 'images/profileImages/'.$oldImage[0]['image'] );
+
+                    }
 
                     $validated['image'] = $this->storeProfileImage(  $request->file('image'), $id );
 
@@ -81,6 +85,28 @@ class AdminController extends Controller
         } else{
             return redirect('/dashboard');
         }
+    }
+    public function addJournalistPage(Type $var = null)
+    {
+        return view('admin.addJournalist');
+    }
+    public function addJournalistPageAddData(Request $request){
+
+            $validated = $request->validate([
+                'name'        => 'required|string|max:255',
+                'description' => 'required|string|max:255',
+                'image'       => 'required|image|max:1024'
+            ]);
+
+        $validated['image']='testimage.jpg' ;
+        $id = Journalists::insertGetId($validated);
+
+        $fileName = $this->storeProfileImage(  $request->file('image'), $id );
+
+        Journalists::where('id', $id )->update(['image' => $fileName ]);
+
+        return redirect('/dashboard');
+
     }
     private function storeProfileImage( $image, $id ){
 

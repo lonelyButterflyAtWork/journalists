@@ -22,7 +22,8 @@
           <a href="{{ route('dashboard') }}" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Dodaj dziennikarza</a>
+
+          <a href="{{ route('dashboard.addJournalistPage') }}" class="nav-link">Dodaj dziennikarza</a>
         </li>
       </ul>
 
@@ -49,33 +50,24 @@
               <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
-                  Starter Pages
+                  Podstrony
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview" style="display: block;">
                 <li class="nav-item">
-                  <a href="#" class="nav-link active">
+                  <a  href="{{ route('dashboard') }}" class="nav-link @yield('homeLinkActive')">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Active Page</p>
+                    <p>Home</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ route('dashboard.addJournalistPage') }}" class="nav-link @yield('addJournalistLinkActive')">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Inactive Page</p>
+                    <p>Dodaj dziennikarza</p>
                   </a>
                 </li>
               </ul>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Simple Link
-                  <span class="right badge badge-danger">New</span>
-                </p>
-              </a>
             </li>
           </ul>
         </nav>
@@ -95,7 +87,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a  href="{{ route('dashboard') }}" >Home</a></li>
                 <li class="breadcrumb-item active">@yield('title')</li>
               </ol>
             </div><!-- /.col -->

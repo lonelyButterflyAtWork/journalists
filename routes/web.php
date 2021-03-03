@@ -40,3 +40,7 @@ Route::post('dashboard/del-vote', [AdminController::class, 'delVoteAjax'])->midd
 Route::get('dashboard/edit-journalist/{id}', [AdminController::class, 'editJournalistPage'])->middleware(['auth'])->name('dashboard.editJournalistPage');
 
 Route::post('dashboard/edit-journalist/edit-data', [AdminController::class, 'editJournalistEditData'])->middleware(['auth'])->name('dashboard.editJournalistPage.editData');
+
+Route::get('dashboard/add-journalist', [AdminController::class, 'addJournalistPage'])->middleware(['auth'])->name('dashboard.addJournalistPage');
+
+Route::post('dashboard/add-journalist/add-data', [AdminController::class, 'addJournalistPageAddData'])->middleware(['auth'])->name('dashboard.addJournalistPage.addData');
