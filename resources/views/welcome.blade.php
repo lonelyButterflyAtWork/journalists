@@ -27,17 +27,17 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="text-b text-gray-700 text-white">Dashboard</a>
+                        <a href="{{ url('/dashboard') }}" class="text-b text-gray-700 text-white">Panel administratora</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-b text-gray-700  text-white">Log in</a>
+                        <a href="{{ route('login') }}" class="text-b text-gray-700  text-white">Zaloguj się</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-b text-white-700  text-white">Register</a>
+                            <a href="{{ route('register') }}" class="ml-4 text-b text-white-700  text-white">Zarejestruj się</a>
                         @endif
                     @endauth
                 </div>
             @endif
-            <div class="card" style="width: 80%">
+            <div class="card" style="width: 80%;margin-top:60px;margin-bottom:60px;">
                 <h1 class="text-center" style="margin-top: 30px;margin-bottom:30px">Zagłosuj na ulubionego dziennikarza</h1>
                 @if(Session::has('success'))
                     <p class="alert alert-success">{{ Session::get('success') }}</p>
