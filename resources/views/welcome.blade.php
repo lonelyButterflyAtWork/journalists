@@ -71,20 +71,22 @@
                           @foreach ($journalists as $journalist)
 
                             <tr>
-                                <td>
-                                <li class="list-inline-item">
-                                    <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar.png">
-                                </li>
-                                    <p>{{ $journalist['name'] }}</p>
+                                <td class="">
+                                    <div class="d-flex align-items-center">
+                                        <li class="list-inline-item">
+                                            <img alt="Avatar" class="table-avatar" src="{{  URL::asset('storage/images/profileImages/' . $journalist['image']) }}">
+                                        </li>
+                                        <span class="ml2">{{ $journalist['name'] }}</span>
+                                    </div>
                                 </td>
 
-                                <td class="project_progress">
-                                    <p>{{ $journalist['description'] }}</p>
+                                <td class="project_progress align-middle">
+                                        <span>{{ $journalist['description'] }}</span>
                                 </td>
-                                <td class="project-state">
-                                    <p class="project_progress text-center">{{ $journalist['voters_count'] }}</p>
+                                <td class="project-state align-middle">
+                                    <span class="project_progress text-center">{{ $journalist['voters_count'] }}</span>
                                 </td>
-                                <td class="project-actions text-right">
+                                <td class="project-actions text-right align-middle">
                                     <form action="{{ route('home.vote') }}" method="POST">
 
                                         @csrf
