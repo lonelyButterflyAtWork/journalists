@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     protected $profileImagesDestinationPath = 'public/images/profileImages';
 
     public function index(Type $var = null)

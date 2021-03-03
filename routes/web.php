@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',  [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
 
 Route::get('/dashboard', [AdminController::class, 'index'])->middleware(['auth'])
                                                           ->name('dashboard');
@@ -44,3 +42,5 @@ Route::post('dashboard/edit-journalist/edit-data', [AdminController::class, 'edi
 Route::get('dashboard/add-journalist', [AdminController::class, 'addJournalistPage'])->middleware(['auth'])->name('dashboard.addJournalistPage');
 
 Route::post('dashboard/add-journalist/add-data', [AdminController::class, 'addJournalistPageAddData'])->middleware(['auth'])->name('dashboard.addJournalistPage.addData');
+
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');

@@ -63,7 +63,7 @@
                               <img alt="Avatar" class="table-avatar" src="{{  URL::asset('storage/images/profileImages/' . $item['image']) }}">
 
                           </td>
-                          <td class="project_progress">
+                          <td class="project_progress" id="counter{{ $item['id'] }}">
                             {{ $item['voters_count'] }}
                           </td>
                           <td class="project-actions text-right">

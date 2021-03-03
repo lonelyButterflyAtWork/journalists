@@ -26,7 +26,10 @@
           <a href="{{ route('dashboard.addJournalistPage') }}" class="nav-link">Dodaj dziennikarza</a>
         </li>
       </ul>
+      <ul class="navbar-nav ml-auto">
 
+         <a href="{{ url('/logout') }}"> Wyloguj się </a>
+      </ul>
     </nav>
     <!-- /.navbar -->
 
