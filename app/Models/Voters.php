@@ -9,6 +9,8 @@ class Voters extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['id', 'ip'];
+
     public function journalists()
     {
         return $this->belongsToMany(Journalists::class)->withTimestamps()->withPivot('id');

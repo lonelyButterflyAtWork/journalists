@@ -28,7 +28,7 @@ class AdminController extends Controller
     {
         $journalists = Journalists::withCount("voters")->get();
 
-        return view('dashboard', compact('journalists'));
+        return view('admin.dashboard', compact('journalists'));
     }
 
     public function showVotesAjax(Request $request){

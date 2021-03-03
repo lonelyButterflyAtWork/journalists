@@ -22,7 +22,7 @@ showVotes = function(event, id){
         });
         function createListEL( id, ip, date, time, counterId){
             return `<div class="d-flex justify-content-between pt1 pb1" style="width: 100%;padding-right:15px;padding-left:15px" id="vote` + id + `">
-                        <span>` + ip + `</span>
+                        <span style="width: 15%">` + ip + `</span>
                         <span>` + date + ` ` + time + `</span>
                         <div onclick = "deleteVote(event, `+ id +`, '#counter`+ counterId +`')" class="btn btn-danger btn-sm mt-1 mb-1">
                                   <i class="fas fa-trash">

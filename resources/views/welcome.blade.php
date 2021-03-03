@@ -39,6 +39,12 @@
             @endif
             <div class="card" style="width: 80%">
                 <h1 class="text-center" style="margin-top: 30px;margin-bottom:30px">Zagłosuj na ulubionego dziennikarza</h1>
+                @if(Session::has('success'))
+                    <p class="alert alert-success">{{ Session::get('success') }}</p>
+                @endif
+                @if(Session::has('failed'))
+                    <p class="alert alert-danger">{{ Session::get('failed') }}</p>
+                @endif
                 <div class="card-body p-0">
                   <table class="table table-striped projects">
                       <thead>
@@ -74,7 +80,15 @@
                                     <p class="project_progress text-center">{{ $journalist['voters_count'] }}</p>
                                 </td>
                                 <td class="project-actions text-right">
-                                <button type="button" class="btn btn-block btn-primary btn-lg">Głosuj</button>
+                                    <form action="{{ route('home.vote') }}" method="POST">
+
+                                        @csrf
+
+                                        <input type="hidden" name="id" value="{{ $journalist['id'] }}">
+
+                                        <button type="submit" class="btn btn-block btn-primary btn-lg">Głosuj</button>
+
+                                    </form>
                                 </td>
                             </tr>
 
