@@ -31,4 +31,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::post('dashboard/showVotes', [AdminController::class, 'showVotesAjax'])->name('dashboard.showvotes');
+Route::post('dashboard/show-votes', [AdminController::class, 'showVotesAjax'])->middleware(['auth'])->name('dashboard.showVotes');
+
+Route::post('dashboard/del-journalist', [AdminController::class, 'delJournalist'])->middleware(['auth'])->name('dashboard.delJournalist');
+
+Route::post('dashboard/del-vote', [AdminController::class, 'delVoteAjax'])->middleware(['auth'])->name('dashboard.delVote');
+
+Route::get('dashboard/edit-journalist/{id}', [AdminController::class, 'editJournalistPage'])->middleware(['auth'])->name('dashboard.editJournalistPage');
+
+Route::post('dashboard/edit-journalist/edit-data', [AdminController::class, 'editJournalistEditData'])->middleware(['auth'])->name('dashboard.editJournalistPage.editData');

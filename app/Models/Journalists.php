@@ -9,8 +9,10 @@ class Journalists extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'description', 'image'];
+
     public function voters()
     {
-        return $this->belongsToMany(Voters::class)->withTimestamps();
+        return $this->belongsToMany(Voters::class)->withTimestamps()->withPivot('id');
     }
 }

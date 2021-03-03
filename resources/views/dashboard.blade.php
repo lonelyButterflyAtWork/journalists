@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('title')
+    Start
+@endsection
 @section('content')
         <!-- Default box -->
         <div class="card">
@@ -63,21 +65,26 @@
                           </td>
                           <td class="project-actions text-right">
                               @if( isset( $item['voters_count'] ) && $item['voters_count'] > 0 )
-                                <a class="btn btn-primary btn-sm  mt-1 mb-1" href="#" onclick="sendAjax( event, {{ $item['id'] }})">
+                                <a class="btn btn-primary btn-sm  mt-1 mb-1" href="#" onclick="showVotes( event, {{ $item['id'] }})">
                                     <i class="fas fa-eye"></i>
                                     Pokaż głosy
                                 </a>
                               @endif
-                              <a class="btn btn-info btn-sm  mt-1 mb-1" href="#">
+                              <a class="btn btn-info btn-sm  mt-1 mb-1" href="{{ route('dashboard.editJournalistPage', $item['id'] ) }}">
                                   <i class="fas fa-pencil-alt ">
                                   </i>
                                   Edytuj
                               </a>
-                              <a class="btn btn-danger btn-sm mt-1 mb-1" href="#" onclick="delJournalist({{ $item['id'] }})">
-                                  <i class="fas fa-trash">
-                                  </i>
-                                  Usuń
-                              </a>
+                              <form action="{{ route('dashboard.delJournalist') }}" method="POST">
+                                  @csrf
+                                <input type="text" name="id" style="display: none" value="{{ $item['id'] }}">
+                                <label class="btn btn-danger btn-sm mt-1 mb-1">
+                                    <i class="fas fa-trash">
+                                    </i>
+                                    Usuń
+                                    <input type="submit" style="display: none">
+                                </label>
+                              </form>
                           </td>
                       </tr>
                       @endforeach
@@ -86,7 +93,9 @@
             </div>
             <!-- /.card-body -->
           </div>
-          <input type="hidden" name="" id="editUrl" value="{{ route('dashboard.showvotes') }}">
+          <input type="hidden" name="" id="editUrl" value="{{ route('dashboard.showVotes') }}">
+          <input type="hidden" name="" id="delVote" value="{{ route('dashboard.delVote')}}">
+
           <!-- /.card -->
 
 @endsection
