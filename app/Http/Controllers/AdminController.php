@@ -22,8 +22,6 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
-    protected $profileImagesDestinationPath = 'public/images/profileImages';
-
     public function index(Type $var = null)
     {
         $journalists = Journalists::withCount("voters")->get();
@@ -44,10 +42,12 @@ class AdminController extends Controller
     public function delJournalist(Request $request)
     {
         if( Auth::check() ) {
+
             $id = $request->get('id');
             Journalists::find($id)->voters()
                                   ->detach();
             Journalists::where('id', $id)->delete();
+
         }
         return redirect('/dashboard');
     }
@@ -64,7 +64,7 @@ class AdminController extends Controller
 
         } else{
 
-            return redirect('/dashboard');
+            return redirect('/dashboard')->with('failed', 'Ten dziennikarz nie istnieje');
 
         }
     }
@@ -94,7 +94,7 @@ class AdminController extends Controller
 
                 } catch ( \Exception $e) {
 
-                    return back()->with('alert-warning', 'Something went wrong: ' . $e);
+                    return redirect('/dashboard')->with('success', 'Nie udało się zedytować danych dziennikarza.');
 
                 }
 
@@ -104,11 +104,11 @@ class AdminController extends Controller
 
             }
             Journalists::where('id', $id )->update($validated);
-            return redirect('/dashboard/edit-journalist/' . $id);
+            return redirect('/dashboard')->with('success', 'Zedytowano dane dziennikarza.');
 
         } else{
 
-            return redirect('/dashboard');
+            return redirect('/dashboard')->with('failed', 'Ten dziennikarz nie istnieje');
 
         }
     }
@@ -120,6 +120,7 @@ class AdminController extends Controller
     }
     public function addJournalistPageAddData(Request $request){
 
+        try{
             $validated = $request->validate([
                 'name'        => 'required|string|max:255',
                 'description' => 'required|string|max:255',
@@ -133,16 +134,30 @@ class AdminController extends Controller
 
         Journalists::where('id', $id )->update(['image' => $fileName ]);
 
-        return redirect('/dashboard');
+        return redirect('/dashboard')->with('success', 'Dodano dziennikarza.');
+
+        }  catch( \Exception $e ){
+
+            return redirect('/dashboard')->with('failed', 'Nie udało się dodać dziennikarza');
+
+        }
+
 
     }
     private function storeProfileImage( $image, $id ){
+        try{
 
-        $now = new DateTime();
-        $now = $now->format('YmdHis');
-        $imageName = $id . "_" . $now . "_" . $image->getClientOriginalName();
-        $path = $image->storeAs($this->profileImagesDestinationPath, $imageName);
-        return $imageName;
+            $now = new DateTime();
+            $now = $now->format('YmdHis');
+            $imageName = $id . "_" . $now . "_" . $image->getClientOriginalExtension();
+            $image->move( 'storage/images/profileImages/', $imageName );
+            return $imageName;
+
+        } catch( \Exception $e ){
+
+            return redirect('/dashboard')->with('failed', 'Nie udało się dodać dziennikarza');
+
+        }
 
     }
 }

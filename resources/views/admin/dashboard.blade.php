@@ -44,6 +44,12 @@
                       </tr>
                   </thead>
                   <tbody>
+                        @if(Session::has('success'))
+                            <p class="alert alert-success">{{ Session::get('success') }}</p>
+                        @endif
+                        @if(Session::has('failed'))
+                            <p class="alert alert-danger">{{ Session::get('failed') }}</p>
+                        @endif
                       @foreach ($journalists as $item)
                       <tr>
                          <td>
